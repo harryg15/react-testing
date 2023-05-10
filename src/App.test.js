@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, getByTestId } from '@testing-library/react';
 import { App } from './App';
 
 /**
@@ -15,7 +15,9 @@ test('App should render', () => {
 
 test('Button should render', () => {
   // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+  render(<App />);
+  expect(screen.getByText('Current theme: light')).toBeInTheDocument();
+  expect(screen.getByText('Show hidden content')).toBeInTheDocument();
 });
 
 /**
@@ -24,16 +26,15 @@ test('Button should render', () => {
  */
 test('theme button should update button text', () => {
   // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+  render(<App />);
+  const button = screen.getByText("Current theme: light")
+  fireEvent.click(button)
+  expect(screen.getByText('Current theme: dark')).toBeInTheDocument();
 });
 
 // BONUS
 // hint: there is a `.toHaveStyle` method.
 // e.g.: expect(element).toHaveStyle('color: #FFF');
-test('theme button should toggle styles', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
-});
 
 /**
  * Verify clicking button should toggle hidden content
